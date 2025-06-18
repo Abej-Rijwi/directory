@@ -1,6 +1,6 @@
 <div align="center">
   <br />
-    <a href="https://youtu.be/Zq5fmkH0T78?feature=shared" target="_blank">
+    <a href="https://youtu.be/3nqixqF-T8M" target="_blank">
       <img src="https://github.com/user-attachments/assets/471e2baa-8781-43b8-aaed-62e313d03e99" alt="Project Banner">
     </a>
   <br />
@@ -16,7 +16,7 @@
 <h3 align="center">Startup Directory Platform</h3>
 
    <div align="center">
-     Build this project step by step with our detailed tutorial on <a href="https://www.youtube.com/@javascriptmastery/videos" target="_blank"><b>JavaScript Mastery</b></a> YouTube. Join the JSM family!
+     Build this project step by step with our detailed tutorial on <a href="https://www.youtube.com/@MasterJavaScript" target="_blank"><b>JavaScript Tutorial</b></a> YouTube. Join the JSM family!
     </div>
 </div>
 
@@ -27,18 +27,16 @@
 3. 🔋 [Features](#features)
 4. 🤸 [Quick Start](#quick-start)
 5. 🕸️ [Snippets (Code to Copy)](#snippets)
-6. 🔗 [Assets](#links)
-7. 🚀 [More](#more)
 
 ## 🚨 Tutorial
 
 This repository contains the code corresponding to an in-depth tutorial available on our YouTube
-channel, <a href="https://www.youtube.com/@javascriptmastery/videos" target="_blank"><b>JavaScript Mastery</b></a>.
+channel, <a href="https://www.youtube.com/@MasterJavaScript" target="_blank"><b>JavaScript Mastery</b></a>.
 
 If you prefer visual learning, this is the perfect resource for you. Follow our tutorial to learn how to build projects
 like these step-by-step in a beginner-friendly manner!
 
-<a href="https://youtu.be/Zq5fmkH0T78?feature=shared" target="_blank"><img src="https://github.com/sujatagunale/EasyRead/assets/151519281/1736fca5-a031-4854-8c09-bc110e3bc16d" /></a>
+<a href="https://youtu.be/3nqixqF-T8M" target="_blank"><img src="https://github.com/sujatagunale/EasyRead/assets/151519281/1736fca5-a031-4854-8c09-bc110e3bc16d" /></a>
 
 ## <a name="introduction">🤖 Introduction</a>
 
@@ -100,8 +98,8 @@ Make sure you have the following installed on your machine:
 **Cloning the Repository**
 
 ```bash
-git clone https://github.com/JavaScript-Mastery-Pro/pitchify.git
-cd pitchify
+git clone https://github.com/Abej-Rijw/directory.git
+cd directory
 ```
 
 **Installation**
@@ -552,19 +550,3 @@ export const PLAYLIST_BY_SLUG_QUERY =
 ```
 
 </details>
-
-## <a name="links">🔗 Assets</a>
-
-- Fonts and Assets used in the project can be found [here](https://drive.google.com/file/d/1OEFHnEq5pQFP86u8FOBLBBNxKPsbjjqU/view?usp=sharing)
-- [Learn Server Actions](https://youtu.be/FKZAXFjxlJI?feature=shared)
-- [Applicaton Workflow](https://miro.com/app/board/uXjVLT_tMdU=/?share_link_id=580854757703)
-
-## <a name="more">🚀 More</a>
-
-**Advance your skills with Next.js Pro Course**
-
-Enjoyed creating this project? Dive deeper into our PRO courses for a richer learning experience. They're packed with detailed explanations, cool features, and exercises to boost your skills. Give it a go!
-
-<a href="https://www.jsmastery.pro/ultimate-next-course" target="_blank">
-<img src="https://i.ibb.co/804sPK6/Image-720.png" alt="Project Banner">
-</a>
