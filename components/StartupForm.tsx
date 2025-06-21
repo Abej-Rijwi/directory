@@ -1,6 +1,7 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 
-import React, { useState, useActionState } from "react";
+import React, { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import MDEditor from "@uiw/react-md-editor";
@@ -11,14 +12,25 @@ import { z } from "zod";
 import { useToast } from "@/hooks/use-toast";
 import { useRouter } from "next/navigation";
 import { createPitch } from "@/lib/actions";
+import { useActionState } from "react";
 
 const StartupForm = () => {
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [pitch, setPitch] = useState("");
+  const [imageUrl, setImageUrl] = useState("");
   const { toast } = useToast();
   const router = useRouter();
 
-  const handleFormSubmit = async (prevState: any, formData: FormData) => {
+  interface FormState {
+    error: string;
+    status: "INITIAL" | "SUCCESS" | "ERROR";
+    _id?: string;
+  }
+
+  const handleFormSubmit = async (
+    prevState: FormState,
+    formData: FormData
+  ): Promise<FormState> => {
     try {
       const formValues = {
         title: formData.get("title") as string,
@@ -32,7 +44,7 @@ const StartupForm = () => {
 
       const result = await createPitch(prevState, formData, pitch);
 
-      if (result.status == "SUCCESS") {
+      if (result.status === "SUCCESS") {
         toast({
           title: "Success",
           description: "Your startup pitch has been created successfully",
@@ -44,9 +56,16 @@ const StartupForm = () => {
       return result;
     } catch (error) {
       if (error instanceof z.ZodError) {
-        const fieldErorrs = error.flatten().fieldErrors;
+        const fieldErrorsRaw = error.flatten().fieldErrors;
+        // Convert string[] | undefined to string
+        const fieldErrors: Record<string, string> = Object.fromEntries(
+          Object.entries(fieldErrorsRaw).map(([key, value]) => [
+            key,
+            value ? value.join(", ") : "",
+          ])
+        );
 
-        setErrors(fieldErorrs as unknown as Record<string, string>);
+        setErrors(fieldErrors);
 
         toast({
           title: "Error",
@@ -71,7 +90,8 @@ const StartupForm = () => {
     }
   };
 
-  const [state, formAction, isPending] = useActionState(handleFormSubmit, {
+  // Use _ for unused state to avoid lint error
+  const [, formAction, isPending] = useActionState(handleFormSubmit, {
     error: "",
     status: "INITIAL",
   });
@@ -89,7 +109,6 @@ const StartupForm = () => {
           required
           placeholder="Startup Title"
         />
-
         {errors.title && <p className="startup-form_error">{errors.title}</p>}
       </div>
 
@@ -104,7 +123,6 @@ const StartupForm = () => {
           required
           placeholder="Startup Description"
         />
-
         {errors.description && (
           <p className="startup-form_error">{errors.description}</p>
         )}
@@ -121,7 +139,6 @@ const StartupForm = () => {
           required
           placeholder="Startup Category (Tech, Health, Education...)"
         />
-
         {errors.category && (
           <p className="startup-form_error">{errors.category}</p>
         )}
@@ -137,16 +154,31 @@ const StartupForm = () => {
           className="startup-form_input"
           required
           placeholder="Startup Image URL"
+          value={imageUrl}
+          onChange={(e) => setImageUrl(e.target.value)}
         />
-
         {errors.link && <p className="startup-form_error">{errors.link}</p>}
+        {imageUrl && (
+          <div style={{ marginTop: 12 }}>
+            <p className="startup-form_label">Image Preview:</p>
+            <img
+              src={imageUrl}
+              alt="Startup Preview"
+              style={{
+                maxWidth: 300,
+                borderRadius: 8,
+                border: "1px solid #eee",
+              }}
+              onError={(e) => (e.currentTarget.style.display = "none")}
+            />
+          </div>
+        )}
       </div>
 
       <div data-color-mode="light">
         <label htmlFor="pitch" className="startup-form_label">
           Pitch
         </label>
-
         <MDEditor
           value={pitch}
           onChange={(value) => setPitch(value as string)}
@@ -162,7 +194,6 @@ const StartupForm = () => {
             disallowedElements: ["style"],
           }}
         />
-
         {errors.pitch && <p className="startup-form_error">{errors.pitch}</p>}
       </div>
 
