@@ -5,7 +5,12 @@ import { client } from "@/sanity/lib/client";
 import { writeClient } from "@/sanity/lib/write-client";
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
-  providers: [GitHub],
+  providers: [
+    GitHub({
+      clientId: process.env.GITHUB_ID!,
+      clientSecret: process.env.GITHUB_SECRET!,
+    }),
+  ],
   callbacks: {
     async signIn({
       user: { name, email, image },
@@ -13,9 +18,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
     }) {
       const existingUser = await client
         .withConfig({ useCdn: false })
-        .fetch(AUTHOR_BY_GITHUB_ID_QUERY, {
-          id,
-        });
+        .fetch(AUTHOR_BY_GITHUB_ID_QUERY, { id });
 
       if (!existingUser) {
         await writeClient.create({
@@ -35,9 +38,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       if (account && profile) {
         const user = await client
           .withConfig({ useCdn: false })
-          .fetch(AUTHOR_BY_GITHUB_ID_QUERY, {
-            id: profile?.id,
-          });
+          .fetch(AUTHOR_BY_GITHUB_ID_QUERY, { id: profile?.id });
 
         token.id = user?._id;
       }
